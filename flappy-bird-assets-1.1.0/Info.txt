@@ -1,0 +1,1 @@
+Under MIT license from https://github.com/samuelcust/flappy-bird-assets/
