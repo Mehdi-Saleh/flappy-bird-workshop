@@ -1,37 +1,35 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcc4l2if7qhsu"]
 
-[ext_resource type="Texture2D" uid="uid://cdoulkcs1t2u0" path="res://icon.svg" id="1_7koh4"]
-[ext_resource type="Script" uid="uid://fpsnjivqs6mk" path="res://rigid_body_2d.gd" id="1_sw0yi"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7koh4"]
-radius = 66.0076
+[ext_resource type="PackedScene" uid="uid://j1oe4muwo6wy" path="res://bird.tscn" id="1_gomlk"]
+[ext_resource type="Texture2D" uid="uid://durf2w477lcku" path="res://flappy-bird-assets-1.1.0/sprites/base.png" id="2_gomlk"]
+[ext_resource type="Script" uid="uid://pthw16s355my" path="res://pipe_controller.gd" id="3_wncvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sw0yi"]
 size = Vector2(1268, 124)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="Bird" parent="." instance=ExtResource("1_gomlk")]
 position = Vector2(157, 309)
-script = ExtResource("1_sw0yi")
-jump_force = 800.0
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-position = Vector2(-5, 0)
-texture = ExtResource("1_7koh4")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(-5, 0)
-shape = SubResource("CircleShape2D_7koh4")
+jump_force = 500.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(21, 563)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(570.5, 0)
-scale = Vector2(9.91406, 1)
-texture = ExtResource("1_7koh4")
+scale = Vector2(3.85417, 1)
+texture = ExtResource("2_gomlk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(572, 3)
 shape = SubResource("RectangleShape2D_sw0yi")
+
+[node name="PipeController" type="Node2D" parent="."]
+script = ExtResource("3_wncvs")
+
+[node name="Timer" type="Timer" parent="PipeController"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="PipeController/Timer" to="PipeController" method="create_pipes"]

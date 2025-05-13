@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://j1oe4muwo6wy"]
+
+[ext_resource type="Script" uid="uid://fpsnjivqs6mk" path="res://rigid_body_2d.gd" id="1_yr30m"]
+[ext_resource type="Texture2D" uid="uid://u2dqh4nrcjse" path="res://flappy-bird-assets-1.1.0/sprites/redbird-downflap.png" id="2_2o5yp"]
+[ext_resource type="Texture2D" uid="uid://beh1isos67xh7" path="res://flappy-bird-assets-1.1.0/sprites/redbird-midflap.png" id="3_k3v35"]
+[ext_resource type="Texture2D" uid="uid://dd8gm4w0hj0el" path="res://flappy-bird-assets-1.1.0/sprites/redbird-upflap.png" id="4_6nk3w"]
+[ext_resource type="Texture2D" uid="uid://cm0ou557c0ium" path="res://flappy-bird-assets-1.1.0/sprites/bluebird-downflap.png" id="5_w265n"]
+[ext_resource type="Texture2D" uid="uid://bvkroiyp6eti8" path="res://flappy-bird-assets-1.1.0/sprites/bluebird-midflap.png" id="6_l2t0q"]
+[ext_resource type="Script" uid="uid://cdewl0jtsqbxj" path="res://animated_sprite_2d.gd" id="7_vab2h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rcu0i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2o5yp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k3v35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6nk3w")
+}],
+"loop": true,
+"name": &"Flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_w265n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_l2t0q")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7koh4"]
+radius = 39.0512
+
+[node name="Bird" type="RigidBody2D"]
+script = ExtResource("1_yr30m")
+jump_force = 800.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.41667, 2.41667)
+sprite_frames = SubResource("SpriteFrames_rcu0i")
+animation = &"Flying"
+speed_scale = 1.5
+script = ExtResource("7_vab2h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 0)
+shape = SubResource("CircleShape2D_7koh4")
