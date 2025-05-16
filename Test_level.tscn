@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcc4l2if7qhsu"]
+[gd_scene load_steps=6 format=3 uid="uid://dcc4l2if7qhsu"]
 
 [ext_resource type="PackedScene" uid="uid://j1oe4muwo6wy" path="res://bird.tscn" id="1_gomlk"]
 [ext_resource type="Texture2D" uid="uid://durf2w477lcku" path="res://flappy-bird-assets-1.1.0/sprites/base.png" id="2_gomlk"]
 [ext_resource type="Script" uid="uid://pthw16s355my" path="res://pipe_controller.gd" id="3_wncvs"]
+[ext_resource type="Texture2D" uid="uid://k150sxv6xkne" path="res://flappy-bird-assets-1.1.0/sprites/background-day.png" id="4_wncvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sw0yi"]
 size = Vector2(1268, 124)
@@ -11,6 +12,9 @@ size = Vector2(1268, 124)
 
 [node name="Bird" parent="." instance=ExtResource("1_gomlk")]
 position = Vector2(157, 309)
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 100
 jump_force = 500.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -27,9 +31,18 @@ shape = SubResource("RectangleShape2D_sw0yi")
 
 [node name="PipeController" type="Node2D" parent="."]
 script = ExtResource("3_wncvs")
+pipe_min_y = -50
+pipe_max_y = 50
 
 [node name="Timer" type="Timer" parent="PipeController"]
 wait_time = 3.0
 autostart = true
 
+[node name="Background" type="Sprite2D" parent="PipeController"]
+z_index = -10
+position = Vector2(602.5, 309)
+scale = Vector2(4.37847, 1.33984)
+texture = ExtResource("4_wncvs")
+
+[connection signal="died" from="Bird" to="PipeController" method="_on_bird_died"]
 [connection signal="timeout" from="PipeController/Timer" to="PipeController" method="create_pipes"]

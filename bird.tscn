@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://j1oe4muwo6wy"]
+[gd_scene load_steps=12 format=3 uid="uid://j1oe4muwo6wy"]
 
 [ext_resource type="Script" uid="uid://fpsnjivqs6mk" path="res://rigid_body_2d.gd" id="1_yr30m"]
 [ext_resource type="Texture2D" uid="uid://u2dqh4nrcjse" path="res://flappy-bird-assets-1.1.0/sprites/redbird-downflap.png" id="2_2o5yp"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cm0ou557c0ium" path="res://flappy-bird-assets-1.1.0/sprites/bluebird-downflap.png" id="5_w265n"]
 [ext_resource type="Texture2D" uid="uid://bvkroiyp6eti8" path="res://flappy-bird-assets-1.1.0/sprites/bluebird-midflap.png" id="6_l2t0q"]
 [ext_resource type="Script" uid="uid://cdewl0jtsqbxj" path="res://animated_sprite_2d.gd" id="7_vab2h"]
+[ext_resource type="AudioStream" uid="uid://d3ar3s8mc7pj0" path="res://audio_assets/sfx_movement_jump4.wav" id="8_2o5yp"]
+[ext_resource type="AudioStream" uid="uid://dvpjjrcsj1jf6" path="res://audio_assets/sfx_sounds_falling11.wav" id="9_k3v35"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rcu0i"]
 animations = [{
@@ -53,3 +55,12 @@ script = ExtResource("7_vab2h")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-5, 0)
 shape = SubResource("CircleShape2D_7koh4")
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_2o5yp")
+volume_db = -5.244
+
+[node name="DeathAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_k3v35")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
